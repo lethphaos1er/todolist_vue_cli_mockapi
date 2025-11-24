@@ -37,6 +37,11 @@ const creatItem =async(content) =>{
   todos.push(todo);
   // Ajouter dans la todos
 }
+const deleteOneById= async(id)=>{
+  await DB.deleteOneById(id);
+  // index de la todo qui est égale à l'id
+  todos.splice(todos.findIndex((todo)=>todo.id===id),1);
+}
 </script>
 <template>
   <!-- CARD LISTE -->
@@ -56,7 +61,7 @@ const creatItem =async(content) =>{
         si je modifie :todo je dois changer dans le script son nom const props = defineProps({
     todo:{type: Object, required: true}
 })-->
-      <todo v-for="todo in todos" :key="todo.id" :todo="todo" />
+      <todo v-for="todo in todos" :key="todo.id" :todo="todo" @on-delete="deleteOneById($event)"/>
     </ul>
 
     <!-- FOOTER DE LISTE -->
